@@ -12,7 +12,7 @@ pipeline {
     	steps {
     		script {
           		node {
-                      timestamp {
+                      timestamps  {
                           println "Descargar codigo fuente"
                           scm checkout
                           bat """
