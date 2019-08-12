@@ -27,6 +27,25 @@ pipeline {
         	}
     	}
 	}
+		
+		
+	stage('Analisis de codigo con Sonar') {
+    	steps {
+    		script {
+          		node {
+                      timestamps  {
+                          unstash "${stashName}"
+				dir("myFolder") {
+        			 bat """
+					sonar-scanner.bat
+				    """	
+				}
+                      }
+        			
+          		}
+        	}
+    	}
+	}
 	
 	stage('Deploy') {
     	steps {
