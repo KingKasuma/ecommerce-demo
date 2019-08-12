@@ -14,7 +14,7 @@ pipeline {
           		node {
                       timestamps  {
                           println "Descargar codigo fuente"
-                          scm checkout
+                          checkout scm
                           bat """
                                 npm install
                             """
