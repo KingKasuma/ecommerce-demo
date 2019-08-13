@@ -16,8 +16,7 @@ pipeline {
                           println "Descargar codigo fuente"
 			  dir("myFolder") {
 				docker.withRegistry() {
-					docker.image("98640321id/primer-docker:mi-etiqueta5test
-").inside("-u root:root"){
+					docker.image("98640321id/primer-docker:mi-etiqueta5test").inside("-u root:root"){
 				  checkout scm
 				  bat """
 					npm install
