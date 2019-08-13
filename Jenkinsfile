@@ -1,6 +1,10 @@
 pipeline {
 
-	agent none
+	//agent none
+	
+	agent {
+        	docker { image 'node:7-alpine' }
+    	}
 
 	environment {
 	    MyKeyID="myCustomValue1"
