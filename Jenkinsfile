@@ -22,7 +22,7 @@ pipeline {
 						docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential") {
 							docker.image('98640321id/primer-docker:mi-etiqueta5test').inside {
 							  checkout scm
-							  bat """
+							  sh """
 								npm install
 								"""
 							     }
@@ -44,7 +44,7 @@ pipeline {
                       timestamps  {
                           unstash "myFolder"
 				dir("myFolder") {
-        			 bat """
+        			 sh """
 				 	dir
 				    """	
 				}
@@ -63,10 +63,10 @@ pipeline {
                           unstash "myFolder"
 				dir("myFolder") {
         			 sh """
-					 docker login
-					 docker build -t primer-docker2:my-etiqueta .
-					 docker tag primer-docker2:my-etiqueta 98640321id/primer-docker:my-etiqueta
-					 docker push primer-docker:my-etiqueta
+					 #docker login
+					 #docker build -t primer-docker2:my-etiqueta .
+					 #docker tag primer-docker2:my-etiqueta 98640321id/primer-docker:my-etiqueta
+					 #docker push primer-docker:my-etiqueta
 				    """	
 				}
                       }
