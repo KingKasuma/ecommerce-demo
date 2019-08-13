@@ -23,7 +23,7 @@ pipeline {
                           println "Descargar codigo fuente"
 				  dir("myFolder") {
 						docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-							docker.image('latoso/container:node').inside {
+							docker.image('latoso/container:node').inside("-u root:root") {
 							  checkout scm
 							  sh """
 							  	npm --version
