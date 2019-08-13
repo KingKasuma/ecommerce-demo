@@ -27,7 +27,7 @@ pipeline {
 						
 							  checkout scm
 							  sh """
-							  	npm --version
+							  	#npm --version
 								npm install
 								"""
 							     }
@@ -52,6 +52,7 @@ pipeline {
 							  unstash "myFolder"
 								dir("myFolder") {
 								 sh """
+								 	echo "Analisis de codigo con Sonar"
 									pwd
 								    """	
 								}
@@ -68,17 +69,21 @@ pipeline {
 		steps {
 			script {
 				node {
-			      timestamps  {
-				  unstash "myFolder"
-					dir("myFolder") {
-					 sh """
-						 #docker login
-						 #docker build -t primer-docker2:my-etiqueta .
-						 #docker tag primer-docker2:my-etiqueta 98640321id/primer-docker:my-etiqueta
-						 #docker push primer-docker:my-etiqueta
-					    """	
+					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
+						docker.image('latoso/container:node').inside("-u root:root") {
+						      timestamps  {
+							  unstash "myFolder"
+								dir("myFolder") {
+								 sh """
+									 #docker login
+									 #docker build -t primer-docker2:my-etiqueta .
+									 #docker tag primer-docker2:my-etiqueta 98640321id/primer-docker:my-etiqueta
+									 #docker push primer-docker:my-etiqueta
+								    """	
+								}
+						      }
+						}
 					}
-			      }
 
 				}
 			}
@@ -89,11 +94,15 @@ pipeline {
     	steps {
     		script {
           		node {
-				unstash "${stashName}"
-				dir("myFolder") {
-        			 sh """
-					npm start
-				    """	
+				docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
+					docker.image('latoso/container:node').inside("-u root:root") {
+						unstash "${stashName}"
+						dir("myFolder") {
+						 sh """
+							npm start
+						    """	
+						}
+					}
 				}
           		}
         	}
