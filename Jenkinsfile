@@ -22,14 +22,14 @@ pipeline {
                       timestamps  {
                           println "Descargar codigo fuente"
 				  dir("myFolder") {
-						//docker.withRegistry('https://registry.hub.docker.com/') {
-							//docker.image('node').inside {
+						docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
+							docker.image('latoso/container:node').inside {
 							  checkout scm
 							  sh """
 								npm install
 								"""
-							     //}
-							 //}
+							     }
+							 }
 				  }
 				    stash name: "myFolder", include: "myFolder/**"
 				}
