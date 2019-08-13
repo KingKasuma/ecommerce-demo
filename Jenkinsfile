@@ -13,9 +13,9 @@ pipeline {
 	stages {
 	
 	stage('Init') {
-	agent {
-                docker { image 'node:7-alpine' }
-            }
+	//agent {
+                //docker { image 'node:7-alpine' }
+            //}
     	steps {
     		script {
           		node {
