@@ -1,10 +1,10 @@
 pipeline {
 
-	//agent none
+	agent none
 	
-	agent {
-        	docker { image 'node:7-alpine' }
-    	}
+	//agent {
+        	//docker { image 'node:7-alpine' }
+    	//}
 
 	environment {
 	    MyKeyID="myCustomValue1"
@@ -19,14 +19,14 @@ pipeline {
                       timestamps  {
                           println "Descargar codigo fuente"
 				  dir("myFolder") {
-						docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential") {
-							docker.image('98640321id/primer-docker:mi-etiqueta5test').inside {
+						//docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential") {
+							//docker.image('98640321id/primer-docker:mi-etiqueta5test').inside {
 							  checkout scm
 							  sh """
 								npm install
 								"""
-							     }
-							 }
+							     //}
+							 //}
 				  }
 				    stash name: "myFolder", include: "myFolder/**"
 				}
