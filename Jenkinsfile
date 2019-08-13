@@ -18,20 +18,18 @@ pipeline {
           		node {
                       timestamps  {
                           println "Descargar codigo fuente"
-			  dir("myFolder") {
-				//docker.withRegistry("https://registry.hub.docker.com") {
-					//docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential") {
-
-					//docker.image('98640321id/primer-docker:mi-etiqueta5test').inside {
-				  checkout scm
-				  bat """
-					npm install
-				    """
-						     //}
-						     //}
-			  }
-			    stash name: "myFolder", include: "myFolder/**"
-                      }
+				  dir("myFolder") {
+						docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential") {
+							docker.image('98640321id/primer-docker:mi-etiqueta5test').inside {
+							  checkout scm
+							  bat """
+								npm install
+								"""
+							     }
+							 }
+				  }
+				    stash name: "myFolder", include: "myFolder/**"
+				}
         			
           		}
         	}
@@ -64,9 +62,7 @@ pipeline {
                       timestamps  {
                           unstash "myFolder"
 				dir("myFolder") {
-        			 bat """
-				 	dir
-					
+        			 sh """
 					 docker login
 					 docker build -t primer-docker2:my-etiqueta .
 					 docker tag primer-docker2:my-etiqueta 98640321id/primer-docker:my-etiqueta
@@ -86,7 +82,7 @@ pipeline {
           		node {
 				unstash "${stashName}"
 				dir("myFolder") {
-        			 bat """
+        			 sh """
 					npm start
 				    """	
 				}
