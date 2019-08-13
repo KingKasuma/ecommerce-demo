@@ -19,11 +19,12 @@ pipeline {
     	steps {
     		script {
           		node {
-                      timestamps  {
-                          println "Descargar codigo fuente"
-				  dir("myFolder") {
-						docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-							docker.image('latoso/container:node').inside("-u root:root") {
+				docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
+					docker.image('latoso/container:node').inside("-u root:root") {
+					      timestamps  {
+						  println "Descargar codigo fuente"
+							  dir("myFolder") {
+						
 							  checkout scm
 							  sh """
 							  	npm --version
@@ -31,9 +32,9 @@ pipeline {
 								"""
 							     }
 							 }
-				  }
-				    stash name: "myFolder", include: "myFolder/**"
-				}
+				  		}
+				   		 stash name: "myFolder", include: "myFolder/**"
+					}
         			
           		}
         	}
@@ -42,42 +43,46 @@ pipeline {
 		
 		
 	stage('Analisis de codigo con Sonar') {
-    	steps {
-    		script {
-          		node {
-                      timestamps  {
-                          unstash "myFolder"
-				dir("myFolder") {
-        			 sh """
-				 	pwd
-				    """	
+		steps {
+			script {
+				node {
+					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
+						docker.image('latoso/container:node').inside("-u root:root") {
+						      timestamps  {
+							  unstash "myFolder"
+								dir("myFolder") {
+								 sh """
+									pwd
+								    """	
+								}
+						      }
+						}
+					}
+
 				}
-                      }
-        			
-          		}
-        	}
-    	}
+			}
+		}
 	}
 		
-		stage('Contenedor Docker') {
-    	steps {
-    		script {
-          		node {
-                      timestamps  {
-                          unstash "myFolder"
-				dir("myFolder") {
-        			 sh """
-					 #docker login
-					 #docker build -t primer-docker2:my-etiqueta .
-					 #docker tag primer-docker2:my-etiqueta 98640321id/primer-docker:my-etiqueta
-					 #docker push primer-docker:my-etiqueta
-				    """	
+	stage('Contenedor Docker') {
+		steps {
+			script {
+				node {
+			      timestamps  {
+				  unstash "myFolder"
+					dir("myFolder") {
+					 sh """
+						 #docker login
+						 #docker build -t primer-docker2:my-etiqueta .
+						 #docker tag primer-docker2:my-etiqueta 98640321id/primer-docker:my-etiqueta
+						 #docker push primer-docker:my-etiqueta
+					    """	
+					}
+			      }
+
 				}
-                      }
-        			
-          		}
-        	}
-    	}
+			}
+		}
 	}
 	
 	stage('Deploy') {
