@@ -13,20 +13,23 @@ pipeline {
 	stages {
 	
 	stage('Init') {
+	agent {
+                docker { image 'node:7-alpine' }
+            }
     	steps {
     		script {
           		node {
                       timestamps  {
                           println "Descargar codigo fuente"
 				  dir("myFolder") {
-						docker.withRegistry('https://registry.hub.docker.com/') {
-							docker.image('node').inside {
+						//docker.withRegistry('https://registry.hub.docker.com/') {
+							//docker.image('node').inside {
 							  checkout scm
 							  sh """
 								npm install
 								"""
-							     }
-							 }
+							     //}
+							 //}
 				  }
 				    stash name: "myFolder", include: "myFolder/**"
 				}
