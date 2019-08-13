@@ -18,7 +18,7 @@ pipeline {
 				//docker.withRegistry("https://registry.hub.docker.com") {
 					//docker.withRegistry('https://registry.hub.docker.com') {
 
-					docker.image('https://registry.hub.docker.com/98640321id/primer-docker:mi-etiqueta5test'){
+					docker.image('98640321id/primer-docker:mi-etiqueta5test'){
 				  checkout scm
 				  bat """
 					npm install
