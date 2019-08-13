@@ -19,8 +19,8 @@ pipeline {
                       timestamps  {
                           println "Descargar codigo fuente"
 				  dir("myFolder") {
-						//docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential") {
-							//docker.image('98640321id/primer-docker:mi-etiqueta5test').inside {
+						docker.withRegistry('https://registry.hub.docker.com/') {
+							docker.image('node').inside {
 							  checkout scm
 							  sh """
 								npm install
