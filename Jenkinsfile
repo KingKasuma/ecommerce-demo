@@ -26,6 +26,7 @@ pipeline {
 							docker.image('latoso/container:node').inside {
 							  checkout scm
 							  sh """
+							  	npm --version
 								npm install
 								"""
 							     }
