@@ -38,7 +38,29 @@ pipeline {
 				dir("myFolder") {
         			 bat """
 				 	dir
-					sonar-scanner.bat
+				    """	
+				}
+                      }
+        			
+          		}
+        	}
+    	}
+	}
+		
+		stage('Contenedor Docker') {
+    	steps {
+    		script {
+          		node {
+                      timestamps  {
+                          unstash "myFolder"
+				dir("myFolder") {
+        			 bat """
+				 	dir
+					
+					 docker login
+					 docker build -t primer-docker2:my-etiqueta .
+					 docker tag primer-docker2:my-etiqueta 98640321id/primer-docker:my-etiqueta
+					 docker push primer-docker:my-etiqueta
 				    """	
 				}
                       }
