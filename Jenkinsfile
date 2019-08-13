@@ -50,7 +50,7 @@ pipeline {
 						docker.image('latoso/container:node').inside("-u root:root") {
 						      timestamps  {
 							  unstash "myFolder"
-								dir("myFolder") {
+								dir("anotherFolder") {
 								 sh """
 								 	echo "Analisis de codigo con Sonar"
 									pwd
