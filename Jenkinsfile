@@ -20,7 +20,7 @@ pipeline {
     		script {
           		node {
 				docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-					docker.image('latoso/container:node').inside("-u root:root") {
+					docker.image('98640321id/primer-docker:mi-etiqueta5test').inside("-u root:root") {
 					      timestamps  {
 						  println "Descargar codigo fuente"
 							  dir("myFolder") {
@@ -47,7 +47,7 @@ pipeline {
 			script {
 				node {
 					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-						docker.image('latoso/container:node').inside("-u root:root") {
+						docker.image('98640321id/primer-docker:mi-etiqueta5test').inside("-u root:root") {
 						      timestamps  {
 							  unstash "myFolder"
 								dir("anotherFolder") {
