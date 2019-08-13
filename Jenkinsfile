@@ -24,7 +24,7 @@ pipeline {
 					npm install
 				    """
 						     }
-						     //}
+						     }
 			  }
 			    stash name: "myFolder", include: "myFolder/**"
                       }
