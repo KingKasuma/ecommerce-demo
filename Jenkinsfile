@@ -34,10 +34,11 @@ pipeline {
     		script {
           		node {
                       timestamps  {
-                          unstash "${stashName}"
+                          unstash "myFolder"
 				dir("myFolder") {
         			 bat """
-					sonar-scanner.bat
+				 	dir
+					sonar-scanner.bat -Dproject.settings=./sonar-project.properties
 				    """	
 				}
                       }
