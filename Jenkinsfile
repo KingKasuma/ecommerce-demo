@@ -15,7 +15,7 @@ pipeline {
                       timestamps  {
                           println "Descargar codigo fuente"
 			  dir("myFolder") {
-				docker.withRegistry() {
+				docker.withRegistry("index.docker.io") {
 					docker.image("98640321id/primer-docker:mi-etiqueta5test").inside("-u root:root"){
 				  checkout scm
 				  bat """
