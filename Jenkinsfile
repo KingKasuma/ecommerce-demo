@@ -16,15 +16,15 @@ pipeline {
                           println "Descargar codigo fuente"
 			  dir("myFolder") {
 				//docker.withRegistry("https://registry.hub.docker.com") {
-					docker.withRegistry('https://registry.hub.docker.com/98640321id/') {
+					//docker.withRegistry('https://registry.hub.docker.com/98640321id/') {
 
-					docker.image('primer-docker:mi-etiqueta5test'){
+					docker.image('primer-docker:mi-etiqueta5test').inside {
 				  checkout scm
 				  bat """
 					npm install
 				    """
 						     }
-						     }
+						     //}
 			  }
 			    stash name: "myFolder", include: "myFolder/**"
                       }
