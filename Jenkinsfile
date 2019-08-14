@@ -47,7 +47,7 @@ pipeline {
 			script {
 				node {
 					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-						docker.image('98640321id/primer-docker:mi-etiqueta5test').inside("-u root:root") {
+						docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
 						      timestamps  {
 							  unstash "myFolder"
 								dir("anotherFolder") {
@@ -70,7 +70,7 @@ pipeline {
 			script {
 				node {
 					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-						docker.image('98640321id/primer-docker:mi-etiqueta5test').inside("-u root:root") {
+						docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
 						      timestamps  {
 							  unstash "myFolder"
 								dir("myFolder") {
@@ -95,7 +95,7 @@ pipeline {
     		script {
           		node {
 				docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-					docker.image('98640321id/primer-docker:mi-etiqueta5test').inside("-u root:root") {
+					docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
 						unstash "${stashName}"
 						dir("myFolder") {
 						 sh """
