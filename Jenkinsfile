@@ -80,7 +80,7 @@ pipeline {
     				}
     			}
     		}
-    	}
+    	} // "Cerrar Analisis de codigo con Sonar"
     		
     	stage('Contenedor Docker') {
     		steps {
@@ -105,7 +105,7 @@ pipeline {
     				}
     			}
     		}
-    	}
+    	} // Cerrar bloque Contenedor Docker
     	
     	stage('Deploy') {
         	steps {
@@ -134,8 +134,8 @@ pipeline {
 			script {
 
 				node {
-		    				sh "docker images"
-						println "post function execution"
+		    			sh "docker images"
+						echo "post function execution"
 					}
 				}
 			}
