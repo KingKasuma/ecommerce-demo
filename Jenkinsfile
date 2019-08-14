@@ -31,7 +31,7 @@ pipeline {
     								  
 	    							def secret;
 	    							withCredentials([string(credentialsId: "AccessTokenPrueba", variable: "AccessToken")]) {
-	    								withEnv( "JAVA_HOME=JavaPath"  ) {
+	    								withEnv( ["JAVA_HOME=JavaPath"]  ) {
 	    									console.log("AccessToken: $AccessToken");
 	    									secret = "$AccessToken"
 	    									sh "env"
