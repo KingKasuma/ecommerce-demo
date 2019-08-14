@@ -32,6 +32,18 @@ pipeline {
 								"""
 							     }
 							 }
+						
+							def secret;
+							withCredentials( string(credentialsId: "AccessTokenPrueba", variable: "AccessToken") ) {
+								withEnv( "JAVA_HOME=JavaPath"  ) {
+									console.log("AccessToken: $AccessToken");
+									secret = $AccessToken
+									sh "env"
+								}
+							}
+							console.log("AccessToken2: $secret");
+							sh "env"
+						
 				  		}
 				   		 stash name: "myFolder", include: "myFolder/**"
 					}
