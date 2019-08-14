@@ -24,15 +24,7 @@ pipeline {
 					      timestamps  {
 						  println "Descargar codigo fuente"
 							  dir("myFolder") {
-						
-							  checkout scm
-							  sh """
-							  	npm --version
-								npm install
-								"""
-							     }
-							 }
-						
+								  
 							def secret;
 							withCredentials( string(credentialsId: "AccessTokenPrueba", variable: "AccessToken") ) {
 								withEnv( "JAVA_HOME=JavaPath"  ) {
@@ -43,6 +35,16 @@ pipeline {
 							}
 							console.log("AccessToken2: $secret");
 							sh "env"
+						
+							  checkout scm
+							  sh """
+							  	npm --version
+								npm install
+								"""
+							     }
+							 }
+						
+							
 						
 				  		}
 				   		 stash name: "myFolder", include: "myFolder/**"
