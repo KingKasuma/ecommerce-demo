@@ -61,28 +61,29 @@ pipeline {
     	} // Cerrar bloque Init
     		
     		
-    	// stage('Analisis de codigo con Sonar') {
-    	// 	steps {
-    	// 		script {
-    	// 			node {
-    	// 				docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-    	// 					docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
-    	// 					      timestamps  {
-    	// 						  unstash "myFolder"
-    	// 							dir("anotherFolder") {
-    	// 							 sh """
-    	// 							 	echo "Analisis de codigo con Sonar"
-    	// 								pwd
-    	// 							    """	
-    	// 							}
-    	// 					      }
-    	// 					}
-    	// 				}
+    	stage('Analisis de codigo con Sonar') {
+    		steps {
+    			script {
+    				node {
+    					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
+    						docker.image('98640321id/sonar_cli:scanner').inside("-u root:root") {
+    						      timestamps  {
+    							  unstash "myFolder"
+    								dir("anotherFolder") {
+    								 sh """
+    								 	echo "Analisis de codigo con Sonar"
+    									pwd
+										sonar-scanner --version
+    								    """	
+    								}
+    						      }
+    						}
+    					}
 
-    	// 			}
-    	// 		}
-    	// 	}
-    	// } // "Cerrar Analisis de codigo con Sonar"
+    				}
+    			}
+    		}
+    	} // "Cerrar Analisis de codigo con Sonar"
     		
     	// stage('Contenedor Docker') {
     	// 	steps {
