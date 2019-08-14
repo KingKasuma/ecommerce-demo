@@ -123,5 +123,18 @@ pipeline {
     	}
 	}    
 }
+	
+	post { 
+		always { 
+
+			script {
+
+				node {
+		    				sh "docker images"
+						println "post function execution"
+					}
+				}
+			}
+	    }
 
 }
