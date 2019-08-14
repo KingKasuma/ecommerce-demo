@@ -130,17 +130,31 @@ pipeline {
 
 } // Cerrar bloque stages
 	
-	// post { 
-	// 	always { 
+post { 
+	 	always { 
 
-	// 		script {
+	 		script {
 
-	// 			node {
-	// 	    			sh "docker images"
-	// 					echo "post function execution"
-	// 				}
-	// 			}
-	// 		}
-	//     }
+	 			node {
+	 				echo "Ejecutando function always post."
+	 				}
+	 			}
+        }
+
+        success {
+            echo 'El pipeline se ejecuto existosamente'
+        }
+        unstable {
+            echo 'El estado de la ejecucion del pipeline es inestable'
+        }
+        failure {
+            echo 'La ejecucion del pipeline ha fallado :('
+        }
+        changed {
+            echo 'Le ejecucion del pipeline ha cambiado'
+        }
+		
+		
+}
 
 }
