@@ -25,29 +25,29 @@ pipeline {
               		node {
     				docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
     					docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
-    					      timestamps  {
+							timestamps  {
     						  println "Descargar codigo fuente"
-    							  dir("myFolder") {
+							  	dir("myFolder") {
     								  
-    							//def secret;
-    							//withCredentials( string(credentialsId: "AccessTokenPrueba", variable: "AccessToken") ) {
-    								//withEnv( "JAVA_HOME=JavaPath"  ) {
-    									//console.log("AccessToken: $AccessToken");
-    									//secret = "$AccessToken"
-    									//sh "env"
-    								//}
-    							//}
+	    							//def secret;
+	    							//withCredentials( string(credentialsId: "AccessTokenPrueba", variable: "AccessToken") ) {
+	    								//withEnv( "JAVA_HOME=JavaPath"  ) {
+	    									//console.log("AccessToken: $AccessToken");
+	    									//secret = "$AccessToken"
+	    									//sh "env"
+	    								//}
+	    							//}
 
-    							console.log("AccessToken2: $secret");
-    							sh "env"
-    						
-    							  checkout scm
-    							  sh """
-    							  	npm --version
-    								npm install
-    								"""
+	    							//console.log("AccessToken2: $secret");
+	    							sh "env"
+	    						
+	    							  checkout scm
+	    							  sh """
+	    							  	npm --version
+	    								npm install
+	    								"""
     							     }
-    							 }
+								}
     						
     							
     						
