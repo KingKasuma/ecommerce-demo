@@ -12,6 +12,7 @@ pipeline {
 
 	environment {
 	    MyKeyID="myCustomValue1"
+		folderTrabajo="MiCarpeta-${BUILD_ID}"
 	}
 	
 	stages {
@@ -27,7 +28,7 @@ pipeline {
     					docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
 							timestamps  {
     						  println "Descargar codigo fuente"
-							  	dir("myFolder") {
+							  	dir("$folderTrabajo") {
     								  
 	    							def secret;
 	    							withCredentials([string(credentialsId: "AccessTokenPrueba", variable: "AccessToken")]) {
@@ -52,7 +53,7 @@ pipeline {
     							
     						
     				  		}
-    				   		 stash name: "myFolder", include: "myFolder/**"
+						stash name: "${folderTrabajo}", include: "${folderTrabajo}/**"
     					}
             			
               		}
@@ -70,17 +71,17 @@ pipeline {
 						//docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
 							//ws {
     						      timestamps  {
-    							  unstash "myFolder"
+							      unstash "${folderTrabajo}"
 							      sh "pwd"
 							      sh "ls"
-    								//dir("myFolder") {
+							      dir("${folderTrabajo}") {
     								 sh """
     								 	echo "Analisis de codigo con Sonar"
     									pwd
 										sonar-scanner --version
     								    """	
-    								//}
-    						      //}
+    								}
+    						      		}
 							}
     						}
     					}
