@@ -2,13 +2,13 @@
 
 pipeline {
 
-	agent none
+	//agent none
 	
-	//agent {
-	    //node {
-		//label 'nombre-Nodo'
-	    //}
-	//}
+	agent {
+	    node {
+		label 'master'
+	    }
+	}
 
 	environment {
 	    MyKeyID="myCustomValue1"
@@ -144,6 +144,7 @@ post {
 
 	 			node {
 	 				echo "Ejecutando function always post."
+					cleanWs()
 	 				}
 	 			}
         }
