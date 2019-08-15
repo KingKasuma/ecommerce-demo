@@ -70,7 +70,7 @@ pipeline {
 							ws {
     						      timestamps  {
     							  unstash "myFolder"
-    								dir("anotherFolder") {
+    								dir("myFolder") {
     								 sh """
     								 	echo "Analisis de codigo con Sonar"
     									pwd
