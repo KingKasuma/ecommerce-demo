@@ -1,5 +1,7 @@
 #!groovy
 
+def MIN_VERSION;
+
 pipeline {
 
 	//agent none
@@ -43,6 +45,7 @@ pipeline {
 	    							sh "env"
 	    						
 	    							  checkout scm
+								  MIN_VERSION=sh(returnStdout: true, script: "git rev-parse --short HEAD").trim()
 	    							  sh """
 	    							  	npm --version
 	    								npm install
@@ -77,7 +80,7 @@ pipeline {
 								      checkout scm
     								 sh """
     								 	echo "Analisis de codigo con Sonar"
-									/tmp/sonar-scanner-3.0.2.768/bin/sonar-scanner
+									/tmp/sonar-scanner-3.0.2.768/bin/sonar-scanner -D"sonar.version=${MIN_VERSION}"
     								    """	
     								}
     						      		
