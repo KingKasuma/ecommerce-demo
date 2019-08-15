@@ -81,7 +81,7 @@ pipeline {
 										sonar-scanner --version
     								    """	
     								}
-    						      		}
+    						      		
 							}
     						}
     					}
