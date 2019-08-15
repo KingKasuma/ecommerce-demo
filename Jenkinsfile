@@ -53,7 +53,7 @@ pipeline {
     							
     						
     				  		}
-						//stash name: "${folderTrabajo}", include: "${folderTrabajo}/**",  excludes: 'node_modules/**'
+						    stash name: "${folderTrabajo}", include: "${folderTrabajo}/**"
     					}
             			
               		}
@@ -93,30 +93,30 @@ pipeline {
     		}
     	} // "Cerrar Analisis de codigo con Sonar"
     		
-    	// stage('Contenedor Docker') {
-    	// 	steps {
-    	// 		script {
-    	// 			node {
-    	// 				docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-    	// 					docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
-    	// 					      timestamps  {
-    	// 						  unstash "myFolder"
-    	// 							dir("myFolder") {
-    	// 							 sh """
-    	// 								 #docker login
-    	// 								 #docker build -t primer-docker2:my-etiqueta .
-    	// 								 #docker tag primer-docker2:my-etiqueta 98640321id/primer-docker:my-etiqueta
-    	// 								 #docker push primer-docker:my-etiqueta
-    	// 							    """	
-    	// 							}
-    	// 					      }
-    	// 					}
-    	// 				}
+    	stage('Contenedor Docker') {
+    		steps {
+    			script {
+    				node {
+    					//docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
+    						//docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
+    						      timestamps  {
+    							  unstash "${folderTrabajo}"
+    								dir("${folderTrabajo}") {
+    								 sh """
+    									 docker login
+    									 docker build -t ecommerce:first .
+    									 docker tag  ecommerce:first 98640321id/ecommerce:first
+    									 docker push 98640321id/ecommerce:first
+    								    """	
+    								}
+    						      }
+    						//}
+    					//}
 
-    	// 			}
-    	// 		}
-    	// 	}
-    	// } // Cerrar bloque Contenedor Docker
+    				}
+    			}
+    		}
+    	} // Cerrar bloque Contenedor Docker
     	
     	// stage('Deploy') {
         // 	steps {
