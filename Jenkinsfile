@@ -79,6 +79,7 @@ pipeline {
     								 	echo "Analisis de codigo con Sonar"
     									pwd
 									/tmp/sonar-scanner-3.0.2.768/bin/sonar-scanner --version
+									/tmp/sonar-scanner-3.0.2.768/bin/sonar-scanner
     								    """	
     								}
     						      		
