@@ -66,20 +66,20 @@ pipeline {
     			script {
     				node {
     					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
-    						//docker.image('98640321id/sonar_cli:scanner').inside("-u root:root") {
-						docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
+    						docker.image('98640321id/sonar_cli:scanner').inside("-u root:root") {
+						//docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
 							//ws {
     						      timestamps  {
     							  unstash "myFolder"
 							      sh "pwd"
 							      sh "ls"
-    								dir("myFolder") {
+    								//dir("myFolder") {
     								 sh """
     								 	echo "Analisis de codigo con Sonar"
     									pwd
 										sonar-scanner --version
     								    """	
-    								}
+    								//}
     						      //}
 							}
     						}
