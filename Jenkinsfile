@@ -47,7 +47,7 @@ pipeline {
 	    							  	npm --version
 	    								npm install
 									ls
-									sudo rm -rf node_modules/*
+									rm -rf node_modules/*
 	    								"""
     							     }
 								}
