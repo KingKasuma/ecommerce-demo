@@ -53,7 +53,7 @@ pipeline {
     							
     						
     				  		}
-						stash name: "${folderTrabajo}", include: "${folderTrabajo}/**"
+						stash name: "${folderTrabajo}", include: "${folderTrabajo}/**",  excludes: 'node_modules/**'
     					}
             			
               		}
