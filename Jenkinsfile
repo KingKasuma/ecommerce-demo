@@ -67,6 +67,7 @@ pipeline {
     				node {
     					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
     						docker.image('98640321id/sonar_cli:scanner').inside("-u root:root") {
+							ws {
     						      timestamps  {
     							  unstash "myFolder"
     								dir("anotherFolder") {
@@ -77,6 +78,7 @@ pipeline {
     								    """	
     								}
     						      }
+							}
     						}
     					}
 
