@@ -13,7 +13,7 @@ pipeline {
 	}
 
 	options {
-    	timestamps()
+    		timestamps()
   	}
 
 	environment {
