@@ -64,6 +64,27 @@ pipeline {
 			}
 		}
     	} // Cerrar bloque primera etapa
+		
+	stage('Ejecutar unit tests en paralelo') {
+            parallel {
+                stage('Test On Windows') {
+                    agent {
+                        label "master"
+                    }
+                    steps {
+                        println "Ejecutando los tests de windows"
+                    }
+                }
+                stage('Test On Linux') {
+                    agent {
+                        label "master"
+                    }
+                    steps {
+                        println "Ejecutando los tests en linux"
+                    }
+                }
+            }
+        }
 	
     	stage('Init') {
     	//agent {
