@@ -1,5 +1,4 @@
 #!groovy
-#Some comment
 
 env.MIN_VERSION="v1.";
 
