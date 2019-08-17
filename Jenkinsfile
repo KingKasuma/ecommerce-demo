@@ -202,7 +202,7 @@ post {
 
 	 			node {
 	 				echo "Ejecutando function always post."
-					cleanWs()
+					//cleanWs()
 	 				}
 	 			}
         }
