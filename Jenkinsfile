@@ -72,7 +72,7 @@ pipeline {
         	steps {
         		script {
               		node {
-    				docker.withRegistry('https://registry.hub.docker.com/',"dokerjsm") {
+    				docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredentials") {
     					docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
 							timestamps  {
     						  println "Descargar codigo fuente"
@@ -104,7 +104,7 @@ pipeline {
     		steps {
     			script {
     				node {
-    					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredential2") {
+    					docker.withRegistry('https://registry.hub.docker.com/',"DockerHubCredentials") {
     						docker.image('98640321id/sonar_cli:scanner').inside("-u root:root") {
 						//docker.image('98640321id/nodejs:pipeline').inside("-u root:root") {
 							//ws {
