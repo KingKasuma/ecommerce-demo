@@ -183,7 +183,7 @@ pipeline {
     	// 					unstash "${stashName}"
     	// 					dir("myFolder") {
     	// 					 sh """
-    	// 						npm start
+    	// 						npm start 
     	// 					    """	
     	// 					}
     	// 				}
