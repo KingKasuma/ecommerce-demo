@@ -1,5 +1,5 @@
 #!groovy
-
+#some comment
 env.MIN_VERSION="v1.";
 
 pipeline {
