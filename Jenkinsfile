@@ -44,7 +44,7 @@ pipeline {
 							echo "AccessToken2: $secret";
 							sh "env"
 
-							//checkout scm
+							checkout scm
 
 							env.MIN_VERSION=sh(returnStdout: true, script: "git rev-parse --short HEAD").trim()
 							println "La version actual es: ${MIN_VERSION}"
@@ -79,8 +79,6 @@ pipeline {
 							timestamps  {
     						  println "Descargar codigo fuente"
 							  	dir("$folderTrabajo") {
-    								  
-	    							sh "env"
 	    						
 	    							  checkout scm
 								  //MIN_VERSION=sh(returnStdout: true, script: "git rev-parse --short HEAD").trim()
