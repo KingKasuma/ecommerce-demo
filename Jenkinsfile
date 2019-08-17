@@ -24,45 +24,43 @@ pipeline {
 	stages {
 
 		stage('primera etapa') {
-        	steps {
-        		script {
-              			node {
-					timestamps  {
-						println "primera etapa"
-						if(isUnix()) {
-							echo "El nodo actual es un nodo linux"
+        		steps {
+        			script {
+              				node {
+						timestamps  {
+							println "primera etapa"
+							if(isUnix()) {
+								echo "El nodo actual es un nodo linux"
 
-							def secret;
-							withCredentials([string(credentialsId: "AccessTokenPrueba", variable: "AccessToken")]) {
-								withEnv( ["JAVA_HOME=JavaPath"]  ) {
-									println "AccessToken: $AccessToken";
-									secret = "$AccessToken"
-									sh "env"
+								def secret;
+								withCredentials([string(credentialsId: "AccessTokenPrueba", variable: "AccessToken")]) {
+									withEnv( ["JAVA_HOME=JavaPath"]  ) {
+										println "AccessToken: $AccessToken";
+										secret = "$AccessToken"
+									}
 								}
+
+								echo "AccessToken2: $secret";
+								sh "env"
+
+								checkout scm
+
+								env.MIN_VERSION=sh(returnStdout: true, script: "git rev-parse --short HEAD").trim()
+								println "La version actual es: ${MIN_VERSION}"
 							}
-
-							echo "AccessToken2: $secret";
-							sh "env"
-
-							checkout scm
-
-							env.MIN_VERSION=sh(returnStdout: true, script: "git rev-parse --short HEAD").trim()
-							println "La version actual es: ${MIN_VERSION}"
-					     	}
-						 else {
-							 println "El nodo actual es un nodo windows"
-						 }
-					}
-    						
-              		}
-            	}
-			post {
-				success {
-					echo 'La primera etapa se ejecuto existosamente'
-				}
-				failure {
-					echo 'La ejecucion de la primera etapa del pipeline ha fallado :('
-				}
+							 else {
+								 println "El nodo actual es un nodo windows"
+							 }
+						}	
+              			}
+            		}
+		}
+		post {
+			success {
+				echo 'La primera etapa se ejecuto existosamente'
+			}
+			failure {
+				echo 'La ejecucion de la primera etapa del pipeline ha fallado :('
 			}
 		}
     	} // Cerrar bloque primera etapa
